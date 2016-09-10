@@ -1,15 +1,17 @@
 import pdb
+import sys
+
 class Result:
     left = 0
     right = 0
     sumValue = 0
 
 def find_maximum_subarray(A):
-    if len(A) == 2:
+    if len(A) == 1:
         result = Result()
         result.left = 0
-        result.right = 1
-        result.sumValue = A[0] + A[1]
+        result.right = 0
+        result.sumValue = A[0]
         return result
     else:
         mid = len(A) // 2
@@ -17,9 +19,9 @@ def find_maximum_subarray(A):
         rightResult = find_maximum_subarray(A[mid:])
         crossResult = crossMid(A, mid)
 
-        if leftResult > crossResult and leftResult > rightResult:
+        if leftResult >= crossResult and leftResult >= rightResult:
             return leftResult
-        elif rightResult > crossResult and rightResult > leftResult:
+        elif rightResult >= crossResult and rightResult >= leftResult:
             return rightResult
         else:
             return crossResult
@@ -27,28 +29,25 @@ def find_maximum_subarray(A):
 
 def crossMid(A, mid):
 
-    leftSum = 0
-    leftMaxSum = -1
-    leftMaxIdx = -1
-    for idx in range(mid, -1, -1):
-        leftSum += A[idx]
-        if(leftSum > leftMaxSum):
-            leftMaxSum = leftSum
-            leftMaxIdx = idx
-    
-    rightSum = 0
-    rightMaxSum = -1
-    rightMaxIdx = -1
-    for idx in range(mid+1, len(a)):
-        rightSum += A[idx]
-        if(rightSum > rightMaxSum):
-            rightMaxSum = rightSum
-            rightMaxIdx = idx
-
     result = Result()
-    result.left = leftMaxIdx
-    result.right = rightMaxIdx
-    result.sumValue = rightMaxSum + leftMaxSum
+
+    leftSum = -sys.maxsize
+    sumValue = 0
+    for idx in range(mid, -1, -1):
+        sumValue += A[idx]
+        if(sumValue > leftSum):
+            leftSum = sumValue
+            result.left = idx
+
+    rightSum = -sys.maxsize
+    sumValue = 0
+    for idx in range(mid+1, len(A)):
+        rightSum += A[idx]
+        if(rightSum > rightSum):
+            rightSum = rightSum
+            result.right = idx
+
+    result.sumValue = rightSum + leftSum
 
     return result
 
