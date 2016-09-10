@@ -52,7 +52,7 @@ def crossMid(A, low, mid, high):
 
     return result
 
-a = [-1, 2, 3, 4, -5]
+a = [ -23, -44, -43, -53, -43, -66]
 #pdb.set_trace()
 result = find_maximum_subarray(a, 0, len(a)-1)
 print('array = ', a)
