@@ -1,7 +1,6 @@
 #imports for abstract classes
 from abc import ABCMeta, abstractmethod
 import time
-import pdb
 
 class Seed(object):
     """Abstract class for seeds"""
@@ -67,7 +66,6 @@ if __name__ == "__main__":
     number_of_numbers = int(input())
     number_of_digits = int(input())
 
-    pdb.set_trace()
     xor_random = XORShiftRandomizer()
 
     if number_of_numbers == 0:
