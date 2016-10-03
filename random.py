@@ -1,6 +1,7 @@
 #imports for abstract classes
 from abc import ABCMeta, abstractmethod
 import time
+import pdb
 
 class Seed(object):
     """Abstract class for seeds"""
@@ -16,7 +17,8 @@ class TimeSeed(Seed):
     """Generates seed from current timer """
     
     def generate_seed(self):
-        return time.time()
+        return time.perf_counter()
+        #return time.time()
 
 class Randomizer(object):
     """Abstract class to generate random number"""
@@ -43,7 +45,9 @@ class XORShiftRandomizer(Randomizer):
         # Check if the number is decimal first
         if random_number.find('.') != -1:
             random_number = random_number.split('.')[1]
-
+        
+        if random_number.find('e') != -1:
+            random_number = random_number.split('e')[0]
         # Do not split if no decimal point and just take the integer as it is
         random_number = int(random_number)
 
@@ -63,6 +67,7 @@ if __name__ == "__main__":
     number_of_numbers = int(input())
     number_of_digits = int(input())
 
+    pdb.set_trace()
     xor_random = XORShiftRandomizer()
 
     if number_of_numbers == 0:
